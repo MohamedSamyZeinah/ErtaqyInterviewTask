@@ -1,7 +1,11 @@
+using Ertaqy_Task.DAL.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<AppDb>();
 
 var app = builder.Build();
 
