@@ -8,15 +8,32 @@ namespace Ertaqy_Task.DAL.DataAccess
     {
         private readonly string _dbConnectionString = configuration.GetConnectionString("CS");
 
-        public DataTable ExecuteQuery(string command)
+        public DataTable ExecuteQuery(string query)
         {
             using (SqlConnection conn = new(_dbConnectionString))
             {
-                SqlCommand Command = new(command, conn);
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                SqlCommand Query = new(query, conn);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Query);
                 DataTable dt = new DataTable();
                 dataAdapter.Fill(dt);
                 return dt;
+            }
+        }
+
+        public DataRow ExecuteQueryScalar(string query)
+        {
+            using (SqlConnection conn = new(_dbConnectionString))
+            {
+                SqlCommand Query = new(query, conn);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Query);
+
+                DataTable dt = new();
+                dataAdapter.Fill(dt);
+
+                if (dt.Rows.Count > 0)
+                    return dt.Rows[0];
+                else
+                    return null;
             }
         }
 

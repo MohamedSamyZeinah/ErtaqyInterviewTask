@@ -1,6 +1,9 @@
-﻿namespace Ertaqy_Task.DAL.Repository.ProductRepo
+﻿using Ertaqy_Task.DAL.Models;
+using Ertaqy_Task.DAL.Repository.Generic;
+
+namespace Ertaqy_Task.DAL.Repository.ProductRepo
 {
-    internal interface IProductRepository
+    public interface IProductRepository : IGenericRepository<Product>
     {
     }
 }
