@@ -23,5 +23,4 @@ appsettings.Development.json
 *.tmp
 
 # Publish output
-wwwroot/
 publish/
