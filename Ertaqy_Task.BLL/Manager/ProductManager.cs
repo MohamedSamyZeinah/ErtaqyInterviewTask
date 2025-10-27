@@ -31,6 +31,26 @@ namespace Ertaqy_Task.BLL.Manager
             return _productRepository.Insert(product);
         }
 
+        public IEnumerable<ProductDto> Filter(decimal? minPrice, decimal? maxPrice, DateTime? dateFrom, DateTime? dateTo, int? providerId, string? search)
+        {
+            var prdt = _productRepository.Filter(minPrice, maxPrice, dateFrom, dateTo, providerId, search);
+            var productLsit = new List<ProductDto>();
+            foreach (DataRow row in prdt.Rows)
+            {
+                productLsit.Add(new ProductDto
+                {
+                    Id = (int)row["Id"],
+                    PrdctName = row["ProductName"].ToString(),
+                    PrdctPrice = (decimal)row["Price"],
+                    CreationDate = (DateTime)row["CreationDate"],
+                    ProviderName = row["ServiceProviderName"].ToString(),
+                    //ProviderId = (int)row["ProviderId"]
+                    ProviderId = row.Table.Columns.Contains("ProviderId") ? Convert.ToInt32(row["ProviderId"]) : 0
+                });
+            }
+            return productLsit;
+        }
+
         //public int Delete(int id)
         //{
         //    return _productRepository.Delete(id);

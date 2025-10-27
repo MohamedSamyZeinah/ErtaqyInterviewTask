@@ -27,9 +27,9 @@ namespace Ertaqy_Task.DAL.Repository.Generic
         #region Methods
         public DataTable GetAll()
         {
-            string tableName = typeof(T).Name + "S";
-            string query = $"select * from {tableName}";
-            return _appDb.ExecuteQuery(query);
+            string tableName = typeof(T).Name + "s";
+            string query = $"SELECT * FROM {tableName}";
+            return _appDb.ExecuteQuery(query, null);
         }
 
         public DataRow GetById(int id)
