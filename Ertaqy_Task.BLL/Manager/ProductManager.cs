@@ -51,11 +51,6 @@ namespace Ertaqy_Task.BLL.Manager
             return productLsit;
         }
 
-        //public int Delete(int id)
-        //{
-        //    return _productRepository.Delete(id);
-        //}
-
         public IEnumerable<ProductDto> GetAll()
         {
             var products = _productRepository.GetAll();
@@ -74,24 +69,6 @@ namespace Ertaqy_Task.BLL.Manager
             return list;
         }
 
-        public ProductDto GetById(int id)
-        {
-            var product = _productRepository.GetById(id);
-            var ProductDto = new ProductDto
-            {
-                Id = (int)product["Id"],
-                PrdctName = product["ProductName"].ToString(),
-                PrdctPrice = (decimal)product["Price"],
-                CreationDate = (DateTime)product["CreationDate"],
-                ProviderId = (int)product["ProviderId"],
-            };
-            return ProductDto;
-        }
-
-        public int Update(Product product)
-        {
-            return _productRepository.Update(product);
-        }
         #endregion
 
     }

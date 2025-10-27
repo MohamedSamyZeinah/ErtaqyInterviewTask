@@ -4,28 +4,54 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Service Providers</h2>
+<div class="container mt-5">
+    <h2 class="text-center text-primary border-bottom pb-4 mb-4">
+        Service Providers
+    </h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Address</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var row in Model)
-        {
-            <tr>
-                <td>@row.Id</td>
-                <td>@row.ProviderName</td>
-                <td>@row.ProviderEmail</td>
-                <td>@row.ProviderPhoneNumber</td>
-                <td>@row.ProviderAddress</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="text-end mb-3">
+        <a asp-action="Create" class="btn btn-outline-primary btn-lg">
+            + Create New
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Provider Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var row in Model)
+                        {
+                            <tr>
+                                <td>@row.Id</td>
+                                <td>@row.ProviderName</td>
+                                <td>@row.ProviderEmail</td>
+                                <td>@row.ProviderPhoneNumber</td>
+                                <td>@row.ProviderAddress</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-3">
+                                No Service Providers Found
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

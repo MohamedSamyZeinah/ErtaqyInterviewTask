@@ -17,6 +17,7 @@ namespace Ertaqy_Task.PL.ActionRequests
         public string ProviderPhoneNumber { get; set; } = string.Empty;
 
         [StringLength(200, ErrorMessage = "Address cannot exceed 200 characters")]
+        [Required(ErrorMessage = "Provider Address is required")]
         public string ProviderAddress { get; set; } = string.Empty;
 
     }
