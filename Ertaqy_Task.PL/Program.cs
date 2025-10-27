@@ -1,11 +1,28 @@
+using Ertaqy_Task.BLL.Contract;
+using Ertaqy_Task.BLL.Manager;
 using Ertaqy_Task.DAL.DataAccess;
+using Ertaqy_Task.DAL.Repository;
+using Ertaqy_Task.DAL.Repository.Generic;
+using Ertaqy_Task.DAL.Repository.ProductRepo;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Register Db
 builder.Services.AddScoped<AppDb>();
+
+//Register Services
+builder.Services.AddScoped<IServiceProviderService, ServiceProviderManger>();
+builder.Services.AddScoped<IProductService, ProductManager>();
+
+//Register Repos
+builder.Services.AddScoped<IServiceProviderRepository, ServiceProviderRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+//Register Generic Repos
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 
