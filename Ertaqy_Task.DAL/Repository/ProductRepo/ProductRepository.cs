@@ -8,13 +8,18 @@ namespace Ertaqy_Task.DAL.Repository.ProductRepo
 {
     public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
+        #region Fields
         private readonly AppDb _appDb;
+        #endregion
 
+        #region Constructor
         public ProductRepository(AppDb appDb) : base(appDb)
         {
             _appDb = appDb;
         }
+        #endregion
 
+        #region Methods
         public DataTable Filter(decimal? minPrice, decimal? maxPrice, DateTime? dateFrom, DateTime? dateTo, int? providerId, string? search)
         {
             StringBuilder query = new();
@@ -70,5 +75,6 @@ namespace Ertaqy_Task.DAL.Repository.ProductRepo
 
             return _appDb.ExecuteQuery(query.ToString(), parameters);
         }
+        #endregion
     }
 }

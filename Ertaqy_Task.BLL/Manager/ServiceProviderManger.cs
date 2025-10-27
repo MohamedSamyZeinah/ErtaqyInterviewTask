@@ -34,11 +34,6 @@ namespace Ertaqy_Task.BLL.Manager
             return _serviceProviderRepository.Insert(serviceProvider);
         }
 
-        //public int Delete(int id)
-        //{
-        //    return _serviceProviderRepository.Delete(id);
-        //}
-
         public IEnumerable<ServiceProviderDto> GetAll()
         {
             var providers = _serviceProviderRepository.GetAll();
@@ -55,25 +50,6 @@ namespace Ertaqy_Task.BLL.Manager
                 });
             }
             return list;
-        }
-
-        public ServiceProviderDto GetById(int id)
-        {
-            var provider = _serviceProviderRepository.GetById(id);
-            var providerDto = new ServiceProviderDto
-            {
-                Id = (int)provider["Id"],
-                ProviderName = provider["Name"].ToString(),
-                ProviderEmail = provider["Email"].ToString(),
-                ProviderPhoneNumber = provider["PhoneNumber"].ToString(),
-                ProviderAddress = provider["Address"].ToString(),
-            };
-            return providerDto;
-        }
-
-        public int Update(ServiceProvider provider)
-        {
-            return _serviceProviderRepository.Update(provider);
         }
         #endregion
     }

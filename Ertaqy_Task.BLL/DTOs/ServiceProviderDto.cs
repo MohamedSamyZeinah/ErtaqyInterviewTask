@@ -7,9 +7,5 @@
         public string ProviderEmail { get; set; } = string.Empty;
         public string ProviderPhoneNumber { get; set; } = string.Empty;
         public string ProviderAddress { get; set; } = string.Empty;
-
-
-
-
     }
 }
