@@ -6,6 +6,7 @@
         public string ProductName { get; set; } = string.Empty;
         public decimal ProductPrice { get; set; }
         public DateTime CreationDate { get; set; }
+        public string ProviderName { get; set; } = string.Empty;
         public int ProviderId { get; set; }
     }
 }

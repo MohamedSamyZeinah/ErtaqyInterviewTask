@@ -3,6 +3,7 @@ using Ertaqy_Task.BLL.DTOs;
 using Ertaqy_Task.PL.ActionRequests;
 using Ertaqy_Task.PL.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ertaqy_Task.PL.Controllers
 {
@@ -22,16 +23,31 @@ namespace Ertaqy_Task.PL.Controllers
         #endregion
 
         #region Actions
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(decimal? minPrice, decimal? maxPrice, DateTime? dateFrom, DateTime? dateTo, int? providerId, string? search)
         {
-            var products = _productService.GetAll();
+            //Filtered Data
+            var products = _productService.Filter(minPrice, maxPrice, dateFrom, dateTo, providerId, search);
+
+            var providers = _serviceProviderService.GetAll();
+            ViewBag.ProvidersList = new SelectList(providers, "Id", "ProviderName", providerId);
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
+            ViewBag.DateFrom = dateFrom?.ToString("yyyy-MM-dd");
+            ViewBag.DateTo = dateTo?.ToString("yyyy-MM-dd");
+            ViewBag.ProviderId = providerId;
+            ViewBag.Search = search;
+
+
+            //var products = _productService.GetAll();
             var productVM = products.Select(p => new ProductVM
             {
                 Id = p.Id,
                 ProductName = p.PrdctName,
                 ProductPrice = p.PrdctPrice,
+                CreationDate = p.CreationDate,
+                ProviderName = p.ProviderName,
                 ProviderId = p.ProviderId,
-                CreationDate = p.CreationDate
             });
             return View(productVM);
         }
@@ -85,6 +101,8 @@ namespace Ertaqy_Task.PL.Controllers
 
             return View(createProductAR);
         }
+
+
 
         #endregion
     }

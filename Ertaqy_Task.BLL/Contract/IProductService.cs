@@ -10,5 +10,8 @@ namespace Ertaqy_Task.BLL.Contract
         public int Create(ProductDto productDto);
         public int Update(Product product);
         //public int Delete(int id);
+
+
+        public IEnumerable<ProductDto> Filter(decimal? minPrice, decimal? maxPrice, DateTime? dateFrom, DateTime? dateTo, int? providerId, string? search);
     }
 }

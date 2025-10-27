@@ -10,21 +10,28 @@ namespace Ertaqy_Task.DAL.DataAccess
         private readonly string _dbConnectionString = configuration.GetConnectionString("CS");
         #endregion
 
-        #region Constructor
-        public DataTable ExecuteQuery(string query)
+
+        #region Methods
+        public DataTable ExecuteQuery(string query, Dictionary<string, object> parameters)
         {
             using (SqlConnection conn = new(_dbConnectionString))
             {
                 SqlCommand Query = new(query, conn);
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        Query.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                    }
+                }
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(Query);
                 DataTable dt = new DataTable();
                 dataAdapter.Fill(dt);
                 return dt;
             }
         }
-        #endregion
 
-        #region Methods
+
         public DataRow ExecuteQueryScalar(string query)
         {
             using (SqlConnection conn = new(_dbConnectionString))
