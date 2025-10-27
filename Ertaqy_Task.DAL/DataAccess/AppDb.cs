@@ -6,30 +6,48 @@ namespace Ertaqy_Task.DAL.DataAccess
 {
     public class AppDb(IConfiguration configuration)
     {
+        #region Fields
         private readonly string _dbConnectionString = configuration.GetConnectionString("CS");
+        #endregion
 
-        public DataTable ExecuteQuery(string command)
+        #region Constructor
+        public DataTable ExecuteQuery(string query)
         {
             using (SqlConnection conn = new(_dbConnectionString))
             {
-                SqlCommand Command = new(command, conn);
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                SqlCommand Query = new(query, conn);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Query);
                 DataTable dt = new DataTable();
                 dataAdapter.Fill(dt);
                 return dt;
             }
         }
+        #endregion
 
-        public int ExecuteCommand(string command)
+        #region Methods
+        public DataRow ExecuteQueryScalar(string query)
+        {
+            using (SqlConnection conn = new(_dbConnectionString))
+            {
+                SqlCommand Query = new(query, conn);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Query);
+                DataTable dt = new();
+                dataAdapter.Fill(dt);
+                if (dt.Rows.Count > 0)
+                    return dt.Rows[0];
+                return null;
+            }
+        }
+        public int ExecuteCommand(string command, Dictionary<string, object> parameters)
         {
             using (SqlConnection conn = new SqlConnection(_dbConnectionString))
             using (SqlCommand cmd = new SqlCommand(command, conn))
             {
-                //if (parameters != null)
-                //{
-                //    foreach (var param in parameters)
-                //        cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
-                //}
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                        cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                }
 
                 conn.Open();
                 int affectedRows = cmd.ExecuteNonQuery();
@@ -37,5 +55,6 @@ namespace Ertaqy_Task.DAL.DataAccess
             }
 
         }
+        #endregion
     }
 }

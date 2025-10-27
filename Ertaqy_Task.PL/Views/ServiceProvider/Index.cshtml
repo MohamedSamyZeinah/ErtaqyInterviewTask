@@ -1,0 +1,31 @@
+﻿@using Ertaqy_Task.PL.ViewModels
+@model IEnumerable<ServiceProviderVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Service Providers</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model)
+        {
+            <tr>
+                <td>@row.Id</td>
+                <td>@row.ProviderName</td>
+                <td>@row.ProviderEmail</td>
+                <td>@row.ProviderPhoneNumber</td>
+                <td>@row.ProviderAddress</td>
+            </tr>
+        }
+    </tbody>
+</table>
